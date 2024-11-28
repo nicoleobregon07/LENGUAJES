@@ -28,10 +28,10 @@ def index():
 
 @app.route('/inventario', methods=['GET', 'POST'])
 def inventario():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    if request.method == 'POST':
-        try:
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        if request.method == 'POST':
             nombre = request.form['nombre']
             precio = request.form['precio']
             detalle = request.form['detalle']
@@ -42,7 +42,8 @@ def inventario():
             imagen = request.files['imagen']
             imagen_blob = imagen.read()
             
-            print("Datos recibidos:")
+            # Datos de depuración
+            print("Datos recibidos para insertar:")
             print(f"Nombre: {nombre}, Precio: {precio}, Detalle: {detalle}, Cantidad: {cantidad}, Categoría: {categoria}, Proveedor ID: {proveedor_id}, Casillero ID: {casillero_id}, Imagen: {len(imagen_blob)} bytes")
 
             cursor.execute("""
@@ -61,18 +62,15 @@ def inventario():
             })
             conn.commit()
             print("Producto insertado correctamente")
-        except Exception as e:
-            print("Error al insertar el producto:", str(e))
-        finally:
-            cursor.close()
-            conn.close()
-        return redirect(url_for('inventario'))
-
-    cursor.execute('SELECT ID_Producto, Nombre, Imagen, Precio, Detalle, Cantidad, Categoria, Proveedor_ID, Casillero_ID, Estado_ID, Fecha_Entrada FROM FIDE_INVENTARIO_TB')
-    productos = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('inventario.html', productos=productos)
+        cursor.execute('SELECT ID_Producto, Nombre, Imagen, Precio, Detalle, Cantidad, Categoria, Proveedor_ID, Casillero_ID, Estado_ID, Fecha_Entrada FROM FIDE_INVENTARIO_TB')
+        productos = cursor.fetchall()
+        print("Productos obtenidos:", productos)
+        return render_template('inventario.html', productos=productos)
+    except Exception as e:
+        print("Error en la operación:", str(e))
+    finally:
+        cursor.close()
+        conn.close()
 
 @app.route('/imagen/<int:producto_id>')
 def imagen(producto_id):
