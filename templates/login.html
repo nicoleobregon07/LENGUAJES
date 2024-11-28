@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Lista de Clientes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Lista de Clientes</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID Cliente</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Cédula</th>
+                    <th>Correo</th>
+                    <th>País</th>
+                    <th>Provincia</th>
+                    <th>Cantón</th>
+                    <th>Distrito</th>
+                    <th>Estado ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                    <td>{{ row[6] }}</td>
+                    <td>{{ row[7] }}</td>
+                    <td>{{ row[8] }}</td>
+                    <td>{{ row[9] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer style="background-color: #333; color: white; text-align: center; padding: 20px; margin-top: 20px;">
+        <p>¡Síguenos en nuestras redes sociales!</p>
+        <ul style="list-style: none; display: flex; justify-content: center; padding: 0;">
+            <li style="margin: 0 10px;">
+                <a href="https://www.facebook.com/tu_tienda" target="_blank" style="color: white; text-decoration: none;">🌐 Facebook</a>
+            </li>
+            <li style="margin: 0 10px;">
+                <a href="https://www.instagram.com/tu_tienda" target="_blank" style="color: white; text-decoration: none;">📷 Instagram</a>
+            </li>
+        </ul>
+        <p>&copy; 2024 Tu Tienda. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

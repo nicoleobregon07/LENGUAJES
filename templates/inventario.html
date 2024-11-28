@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Gestión de Inventario</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gestión de Inventario{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .product-card {
@@ -15,7 +17,13 @@
     </style>
 </head>
 <body>
+    {% extends "base.html" %}
+
+{% block title %}Gestión de Inventario{% endblock %}
+
+{% block content %}
     <div class="container">
+        
         <h1 class="text-center">Gestión de Inventario</h1>
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
@@ -75,5 +83,6 @@
             {% endfor %}
         </div>
     </div>
+    {% endblock %}
 </body>
 </html>

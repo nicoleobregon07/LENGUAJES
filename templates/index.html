@@ -1,45 +1,85 @@
 <!DOCTYPE html>
-<html>
-    
+<html lang="es">
 <head>
-    <title>Lista de Clientes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Gestión de Tienda</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .module-card {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center">Lista de Clientes holi</h1>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID Cliente</th>
-                    <th>Nombre</th>
-                    <th>Telefono</th>
-                    <th>Cedula</th>
-                    <th>Correo</th>
-                    <th>Pais</th>
-                    <th>Provincia</th>
-                    <th>Canton</th>
-                    <th>Distrito</th>
-                    <th>Estado ID</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in rows %}
-                <tr>
-                    <td>{{ row[0] }}</td>
-                    <td>{{ row[1] }}</td>
-                    <td>{{ row[2] }}</td>
-                    <td>{{ row[3] }}</td>
-                    <td>{{ row[4] }}</td>
-                    <td>{{ row[5] }}</td>
-                    <td>{{ row[6] }}</td>
-                    <td>{{ row[7] }}</td>
-                    <td>{{ row[8] }}</td>
-                    <td>{{ row[9] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="container mt-4">
+        <h1 class="text-center">Gestión de Tienda</h1>
+        <p class="text-center">Selecciona un módulo para gestionar la tienda:</p>
+        <div class="row">
+            <div class="col-md-4 module-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Inventario</h5>
+                        <p class="card-text">Gestiona los detalles de los productos en el inventario.</p>
+                        <a href="{{ url_for('inventario') }}" class="btn btn-primary">Ir a Inventario</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 module-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Clientes</h5>
+                        <p class="card-text">Almacena, modifica y elimina información de clientes.</p>
+                        <a href="#" class="btn btn-primary">Ir a Clientes</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 module-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Proveedores</h5>
+                        <p class="card-text">Consulta información sobre precios y productos de proveedores.</p>
+                        <a href="#" class="btn btn-primary">Ir a Proveedores</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 module-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Carrito de Compras</h5>
+                        <p class="card-text">Permite a los clientes gestionar sus compras.</p>
+                        <a href="#" class="btn btn-primary">Ir a Carrito</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 module-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Pagos</h5>
+                        <p class="card-text">Configura los métodos de pago disponibles.</p>
+                        <a href="#" class="btn btn-primary">Ir a Pagos</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 module-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Atención al Cliente</h5>
+                        <p class="card-text">Habilita opciones de atención vía WhatsApp o correo.</p>
+                        <a href="#" class="btn btn-primary">Ir a Atención al Cliente</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 module-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Catálogo de Productos</h5>
+                        <p class="card-text">Visualiza todos los productos en venta.</p>
+                        <a href="#" class="btn btn-primary">Ir a Catálogo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

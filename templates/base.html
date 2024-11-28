@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi App{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+    <footer style="background-color: #333; color: white; text-align: center; padding: 20px; margin-top: 20px;">
+        <p>¡Síguenos en nuestras redes sociales!</p>
+        <ul style="list-style: none; display: flex; justify-content: center; padding: 0;">
+            <li style="margin: 0 10px;">
+                <a href="https://www.facebook.com/tu_tienda" target="_blank" style="color: white; text-decoration: none;">🌐 Facebook</a>
+            </li>
+            <li style="margin: 0 10px;">
+                <a href="https://www.instagram.com/tu_tienda" target="_blank" style="color: white; text-decoration: none;">📷 Instagram</a>
+            </li>
+        </ul>
+        <p>&copy; 2024 Tu Tienda. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
