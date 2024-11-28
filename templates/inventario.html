@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestión de Inventario</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .product-card {
+            margin-bottom: 20px;
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px; /* Altura fija para las imágenes */
+            object-fit: cover; /* Ajuste de la imagen para que se adapte al contenedor */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Gestión de Inventario</h1>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="precio">Precio</label>
+                <input type="number" step="0.01" class="form-control" id="precio" name="precio" required>
+            </div>
+            <div class="form-group">
+                <label for="detalle">Detalle</label>
+                <textarea class="form-control" id="detalle" name="detalle" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="cantidad">Cantidad</label>
+                <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+            </div>
+            <div class="form-group">
+                <label for="categoria">Categoría</label>
+                <input type="text" class="form-control" id="categoria" name="categoria" required>
+            </div>
+            <div class="form-group">
+                <label for="proveedor_id">Proveedor ID</label>
+                <input type="number" class="form-control" id="proveedor_id" name="proveedor_id" required>
+            </div>
+            <div class="form-group">
+                <label for="casillero_id">Casillero ID</label>
+                <input type="number" class="form-control" id="casillero_id" name="casillero_id" required>
+            </div>
+            <div class="form-group">
+                <label for="imagen">Imagen</label>
+                <input type="file" class="form-control-file" id="imagen" name="imagen" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Producto</button>
+        </form>
+
+        <h2 class="text-center mt-5">Productos</h2>
+        <div class="row">
+            {% for producto in productos %}
+            <div class="col-md-4 product-card">
+                <div class="card">
+                    <img src="{{ url_for('imagen', producto_id=producto[0]) }}" class="card-img-top" alt="{{ producto[1] }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto[1] }}</h5>
+                        <p class="card-text">{{ producto[4] }}</p>
+                        <p class="card-text">Precio: ${{ producto[3] }}</p>
+                        <p class="card-text">Cantidad: {{ producto[5] }}</p>
+                        <p class="card-text">Categoría: {{ producto[6] }}</p>
+                        <p class="card-text">Proveedor ID: {{ producto[7] }}</p>
+                        <p class="card-text">Casillero ID: {{ producto[8] }}</p>
+                        <p class="card-text">Estado ID: {{ producto[9] }}</p>
+                        <p class="card-text">Fecha de Entrada: {{ producto[10] }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
