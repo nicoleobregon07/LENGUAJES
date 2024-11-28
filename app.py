@@ -23,43 +23,49 @@ def index():
 # Ruta: Inventario
 @app.route('/inventario', methods=['GET', 'POST'])
 def inventario():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    if request.method == 'POST':
-        nombre = request.form['nombre']
-        precio = request.form['precio']
-        detalle = request.form['detalle']
-        cantidad = request.form['cantidad']
-        categoria = request.form['categoria']
-        proveedor_id = request.form['proveedor_id']
-        casillero_id = request.form['casillero_id']
-        imagen = request.files['imagen']
-        imagen_blob = imagen.read()
-        
-        cursor.execute("""
-            INSERT INTO FIDE_INVENTARIO_TB 
-            (Nombre, Imagen, Precio, Detalle, Cantidad, Categoria, Proveedor_ID, Casillero_ID, Fecha_Entrada)
-            VALUES (:nombre, :imagen_blob, :precio, :detalle, :cantidad, :categoria, :proveedor_id, :casillero_id, SYSTIMESTAMP)
-        """, {
-            'nombre': nombre,
-            'imagen_blob': imagen_blob,
-            'precio': precio,
-            'detalle': detalle,
-            'cantidad': cantidad,
-            'categoria': categoria,
-            'proveedor_id': proveedor_id,
-            'casillero_id': casillero_id
-        })
-        conn.commit()
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        if request.method == 'POST':
+            nombre = request.form['nombre']
+            precio = request.form['precio']
+            detalle = request.form['detalle']
+            cantidad = request.form['cantidad']
+            categoria = request.form['categoria']
+            proveedor_id = request.form['proveedor_id']
+            casillero_id = request.form['casillero_id']
+            imagen = request.files['imagen']
+            imagen_blob = imagen.read()
+            
+            # Datos de depuración
+            print("Datos recibidos para insertar:")
+            print(f"Nombre: {nombre}, Precio: {precio}, Detalle: {detalle}, Cantidad: {cantidad}, Categoría: {categoria}, Proveedor ID: {proveedor_id}, Casillero ID: {casillero_id}, Imagen: {len(imagen_blob)} bytes")
+
+            cursor.execute("""
+                INSERT INTO FIDE_INVENTARIO_TB 
+                (Nombre, Imagen, Precio, Detalle, Cantidad, Categoria, Proveedor_ID, Casillero_ID, Fecha_Entrada)
+                VALUES (:nombre, :imagen_blob, :precio, :detalle, :cantidad, :categoria, :proveedor_id, :casillero_id, SYSTIMESTAMP)
+            """, {
+                'nombre': nombre,
+                'imagen_blob': imagen_blob,
+                'precio': precio,
+                'detalle': detalle,
+                'cantidad': cantidad,
+                'categoria': categoria,
+                'proveedor_id': proveedor_id,
+                'casillero_id': casillero_id
+            })
+            conn.commit()
+            print("Producto insertado correctamente")
+        cursor.execute('SELECT ID_Producto, Nombre, Imagen, Precio, Detalle, Cantidad, Categoria, Proveedor_ID, Casillero_ID, Estado_ID, Fecha_Entrada FROM FIDE_INVENTARIO_TB')
+        productos = cursor.fetchall()
+        print("Productos obtenidos:", productos)
+        return render_template('inventario.html', productos=productos)
+    except Exception as e:
+        print("Error en la operación:", str(e))
+    finally:
         cursor.close()
         conn.close()
-        return redirect(url_for('inventario'))
-
-    cursor.execute('SELECT ID_Producto, Nombre, Imagen, Precio, Detalle, Cantidad, Categoria, Proveedor_ID, Casillero_ID, Estado_ID, Fecha_Entrada FROM FIDE_INVENTARIO_TB')
-    productos = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('inventario.html', productos=productos)
 
 # Ruta para cargar imagen del inventario
 @app.route('/imagen/<int:producto_id>')
